@@ -1,7 +1,7 @@
 #####in terminal
 >1. Make a new folder.
 >2. Make run.py file and shop folder in the new folder.
->3. Make the other files and folders in shop folder.(Exclude style.css and index.html)
+>3. Put the other files and folders in shop folder.(Exclude style.css and index.html)
 >4. Go to shop folder: 
 >5. shop>> pip3 install flask
 >6. shop>> pip3 install flask-SQLAlchemy
