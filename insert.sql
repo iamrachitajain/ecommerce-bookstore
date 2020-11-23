@@ -1,0 +1,22 @@
+INSERT INTO Customers VALUES ("Nora Eaton", "norah.eaton@gmail.com", "1 Red Dr", "PA", "12345", "personal", "female", 21, 36000),
+INSERT INTO Customers VALUES ("Amayah Tyler", "tyler.a@yahoo.com", "2 Blue Place", "MD", "31415", "personal", "female", 32, 54000),
+INSERT INTO Customers VALUES ("Gracey Feeney", "grf123@pitt.edu", "3 Green Road", "NY", "01010", "personal", "nonbinary", 19, 18900),
+INSERT INTO Customers VALUES ("Ayoub Soto", "ayoub_soto@gmail.com", "4 Orange Ave", "PA", "11235", "personal", "male", 46, 28000),
+INSERT INTO Customers VALUES ("Haya Hunt", "hayahunt@hunt.net", "5 Yellow Way", "NM", "98765", "personal", "female", 24, 62000),
+INSERT INTO Customers VALUES ("Patricia Bender", "pbender@cmu.edu", "6 Purple St", "PA", "90210", "personal", "female", 27, 75000),
+INSERT INTO Customers VALUES ("Shelbie Copeland", "shelbiecopes@gmail.com", "7 Pink Way", "NY", "64209", "personal", "other", 34, 46000)
+INSERT INTO Customers VALUES ("Rida Wyatt", "rida.wyatt@internet.org", "8 Mauve St", "CA", "43110", "personal", "female", 30, 39500),
+INSERT INTO Customers VALUES ("Zahrah Mckinney", "zmck@yahoo.com", "9 Puce Dr", "DC", "01134", "personal", "female", 39, 65000),
+INSERT INTO Customers VALUES ("Ismail Short", "ismailtall@gmail.com", "10 Beige Road", "FL", "56789", "personal", "male", 23, 42000),
+INSERT INTO Customers VALUES ("Nelson Corp", "info@nelson.com", "11 Elm St", "NH", "11111", "business", "retail", 1000000, 30),
+INSERT INTO Customers VALUES ("Haarmann University," "contact@haarmann.edu", "12 Spruce Place", "WY", "22222", "business", "education", 20000000, 3000),
+INSERT INTO Customers VALUES ("Dean Foundation, "dean@dean.org", "13 Oak Way", "NY", "33333", "business", "nonprofit", 4000000, 22),
+
+INSERT INTO Book VALUES ("1702802043", "Coding with Python: An Introductory Guide for Beginners to Learn and Start Coding with Python", "Christopher Wilkinson", 192, "Python", 400, 19.65),
+INSERT INTO Book VALUES ("1119363020", "Coding All-in-One For Dummies", "Nikhil Abraham", 800, "General", 200, 27.63),
+INSERT INTO Book VALUES ("1465482210", "Beginner's Step-by-Step Coding Course: Learn Computer Programming the Easy Way", "DK", 360, "General", 560, 21.39),
+INSERT INTO Book VALUES ("1617294403", "Web Design Playground: HTML & CSS the Interactive Way", "Paul McFedries", 440, "Web development", 320, 33.32),
+INSERT INTO Book VALUES ("1593279507", : Eloquent JavaScript, 3rd Edition: A Modern Introduction to Programming", "Marihn Haverbeke", 472, "Java/JavaScript", 600, 25.07),
+INSERT INTO Book VALUES ("1593279280", "Python Crash Course, 2nd Edition: A Hands-On, Project-Based Introduction to Programming", "Eric Matthes", 544, "Python", 198, 21.24),
+INSERT INTO Book VALUES ("1260440230", "Java: The Complete Reference, Eleventh Edition", "Herbert Schildt", 1248, "Java/JavaScript", 65, 39.76),
+INSERT INTO Book VALUES ("1800208987", "Modern C++ Programming Cookbook", "Marius Bancila", 750, "C++", 230, 49.99)
