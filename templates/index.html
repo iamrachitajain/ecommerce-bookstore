@@ -1,12 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/style.css"/>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+    });
+	</script>
     <title>PittBookStore</title>
    <style>
   .container {
@@ -16,9 +21,23 @@
 </head>
 <body>
    <div class="container  text-center">
-  <h3>U
-  Pitt Book Store</h3>
-  <p>One stop shop for all books!</p>
+  <div style="background-color: yellow; height: 87px; width: 100%; border: 1px solid white; background-position: center; background-size: 100%;">
+  <div class="row">
+    <div class="col-md-1 col-xs-2">
+    </div>
+    <div class="col-md-10 col-xs-8">
+      <p style="color: black; font-size: 155%; height: 100%; width: 100%; margin-top: 1.8%; text-align: center;">
+        <strong>One Stop Shop For All Your Programming Books!</strong></p>
+    </div>
+    <div class="col-md-1 col-xs-2">
+      <div style="margin-top: 15px;">
+      </div>
+    </div>
+   </div>
+</div>
+  <div id = "bg" style="background-image: url('/static/images/programmer.jpg');
+  background-size: cover; height:480px; padding-top:80px;">
+  </div>
 </div>
 </body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -35,14 +54,14 @@
       <ul class="nav navbar-nav navbar-right">
       	<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
         <li><a href="#home">HOME</a></li>
-        <li><a href="#books">BOOKS</a></li>
+        <li><a href="/books">BOOKS</a></li>
         <li><a href="#contact">CONTACT US</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">ACCOUNT
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Sign in></a></li>
-            <li><a href="#">Sign up</a></li>
+            <li><a class="dropdown-item" href="/signin">Sign in</a></li>
+            <li><a href="/signup">Sign up</a></li>
             <li><a href="#">Cart</a></li>
             <li><a href="#">Orders</a></li> 
           </ul>
@@ -51,34 +70,6 @@
     </div>
   </div>
 </nav>
-<div class="container">
-  <h3 class="text-center">Contact</h3>
-  <p class="text-center"><em>We love our fans!</em></p>
-  <div class="row test">
-    <div class="col-md-4">
-      <p>Fan? Drop a note.</p>
-      <p><span class="glyphicon glyphicon-map-marker"></span>Chicago, US</p>
-      <p><span class="glyphicon glyphicon-phone"></span>Phone: +00 1515151515</p>
-      <p><span class="glyphicon glyphicon-envelope"></span>Email: mail@mail.com</p>
-    </div>
-    <div class="col-md-8">
-      <div class="row">
-        <div class="col-sm-6 form-group">
-          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
-        </div>
-        <div class="col-sm-6 form-group">
-          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
-        </div>
-      </div>
-      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea>
-      <div class="row">
-        <div class="col-md-12 form-group">
-          <button class="btn pull-right" type="submit">Send</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <body id="home" data-spy="scroll" data-target=".navbar" data-offset="50">
 
 <div id="books" class="container">
