@@ -2,17 +2,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Form</title>
+    <title>Create Account</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.6/tailwind.min.css" />
 <script type="text/javascript">
   function ValidateEmail()   
 {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.user.value))  
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.userEmail.value))  
     {
         return (true);
     }
-    alert("Invalid Email");  
+    alert("Please enter a valid email id");  
     return (false);
+
+    if(myForm.userPassword.value !== myForm.userRepeatPassword.value)
+    {
+      alert("Password entered do not match");  
+    return (false);
+    }
 }
 </script>
   </head>
@@ -25,7 +31,7 @@
         </div>
         <form name=myForm action="/signup/" method="POST" onsubmit="return ValidateEmail();">
           <div class="mt-5">
-            <label for="username">Email</label>
+            <label for="userEmail">Email</label>
             <input
               name="userEmail"
               type="text"
@@ -75,21 +81,21 @@
             />
           </div>
           <div class="mt-5">
-            <label for="phonenumber">Phone Number</label>
-            <input type="text" name="country code"  value="+1" size="1"/>
+            <label for="userPhone">Phone Number</label>
             <input
               name="userPhone"
-              type="text"
+              type="tel"
               id="userPhone"
               class="block w-full p-2 border rounded border-gray-500"
-              size = "10"/
+              placeholder = "(xxx)xxx-xxxx"
+              size = "14"/
+              pattern="\(\d{3}\)[ ]?\d{3}[-]?\d{4}" 
               required
-            /><br><br>
-          </div>   
+            />  
           <div class="mt-10">
             <input
               type="submit"
-              value="Login"
+              value="Create Account"
               class="py-3 bg-green-500 hover:bg-green-600 rounded text-white text-center w-full"
             />
           </div>
