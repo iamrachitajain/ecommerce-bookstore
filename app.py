@@ -1,9 +1,10 @@
-﻿from flask import Flask, render_template, request
+﻿from flask import Flask, render_template, request, session
 from flask_mysqldb import MySQL
+
 import MySQLdb
 
 app = Flask(__name__)
-
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['PORT'] = '3306'
 app.config['MYSQL_USER'] = 'root'
@@ -27,29 +28,38 @@ def signup():
 		userFirst = details['userFirst']
 		userLast = details['userLast']
 		userPhone = details['userPhone']
-		street = details['street']
-		city = details['city']
-		country = details['country']
-		userGender = details['userGender']
-		bdate = date['date']
-		bmonth = details['month']
-		byear = year['year']
 		cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-		cur.execute("INSERT INTO MyUsers VALUES(userEmail, userPassword, userRepeatPassword, userFirst, userLast, userPhone, street, city, country, userGender, bdate, bmonth, byear)")
+		cur.execute("INSERT INTO MyUsers VALUES (%s, %s, %s, %s, %s, %s)", (userEmail, userPassword, userRepeatPassword, userFirst, userLast, userPhone))
 		mysql.connection.commit()
 		cur.close()
 	return render_template('signup.html')
 
 @app.route('/signin/', methods=['GET', 'POST'])
 def signin():
+	msg = ""
 	if request.method == "POST":
 		username = request.form['user']
 		password = request.form['password']
 		cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-		cur.execute("INSERT INTO users(username, passwrd) VALUES (%s, %s)", (username, password))
-		mysql.connection.commit()
+		cur.execute('SELECT * FROM MyUsers WHERE userEmail = % s AND userPassword = % s', (username, password, )) 
+		account = cur.fetchone()
+		if account:
+			session['logged_in'] = True
+			session['userFirst'] = account['userFirst']
+			print(session['userFirst'])
+			msg = "Logged in successfully !"
+			return render_template('index.html', msg = msg)
+		else:
+			msg = "Incorrect email / password"
+			return render_template('index.html', msg = msg)
 		cur.close()
 	return render_template('signin.html')
+
+@app.route('/logout') 
+def logout(): 
+    session.pop('logged_in', None) 
+    session.pop('userFirst', None) 
+    return render_template('index.html')
 
 @app.route('/books/', methods=['GET', 'POST'])
 def books():

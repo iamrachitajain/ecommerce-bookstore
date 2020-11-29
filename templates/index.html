@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/style.css"/>
+    <link rel="stylesheet" href="/static/css/style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>
@@ -27,7 +27,11 @@
     </div>
     <div class="col-md-10 col-xs-8">
       <p style="color: black; font-size: 155%; height: 100%; width: 100%; margin-top: 1.8%; text-align: center;">
-        <strong>One Stop Shop For All Your Programming Books!</strong></p>
+        <strong><h1>One Stop Shop For All Your Programming Books!</h1></strong>
+        {% if session.logged_in %}
+    	<h3>Welcome Back {{session.userFirst}} !</h3>
+		{% endif %}
+    </p>
     </div>
     <div class="col-md-1 col-xs-2">
       <div style="margin-top: 15px;">
@@ -63,7 +67,8 @@
             <li><a class="dropdown-item" href="/signin">Sign in</a></li>
             <li><a href="/signup">Sign up</a></li>
             <li><a href="#">Cart</a></li>
-            <li><a href="#">Orders</a></li> 
+            <li><a href="#">Orders</a></li>
+            <li><a href="{{url_for('logout')}}">Logout</a></li> 
           </ul>
         </li>
       </ul>
