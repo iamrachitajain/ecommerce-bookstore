@@ -70,15 +70,30 @@ def books():
 def cart():
 	htmlToAdd = ""
 	cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-		cur.execute('SELECT product_ID FROM Cart_item WHERE cart_ID = Cart.customer_ID AND Cart.customer_ID = Customer.ID')
-		item = cur.fetchone()
-		while item is not None:
-  			prodID = item
+		cur.execute('SELECT product_ID FROM Cart_item, Cart, Customer WHERE cart_ID = Cart.customer_ID AND Cart.customer_ID = Customer.ID')
+		item = cur.fetchall()
+		for row in item:
+  			prodID = item.get('product_ID')
   			cur.execute('SELECT title, price, img FROM Book WHERE ISBN = %d', prodID)
   			details = cur.fetchone()
   			htmlToAdd += "<img src = \"%s\"><br>%s<br>%f", details.get('img'), details.get('title'), details.get('price')  
-  			item = cursor.fetchone()
   	return render_template('cart.html', detailsHere = htmlToAdd)
+
+
+@app.route('/orders/', methods=['GET', 'POST'])
+def cart():
+	orderHistory = ""
+	cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+		cur.execute('SELECT * FROM Customer_order, Customer where customer_ID = Customer.ID')
+		history.fetchall()
+		for row in history:
+  			order = row
+  			orderHistory += "Order number: %d<br>Order date: %s<br>", order.get('order_number'), order.get('order_date')
+  			cur.execute('SELECT title, price, img FROM Book, Customer_order, Order_item WHERE order_ID = order.get('order_number') AND product_ID = Book.ISBN')
+  			for row in details:
+  				details = cur.fetchall()
+  				orderHistory += "<img src = \"%s\"><br>%s<br>%f", details.get('img'), details.get('title'), details.get('price')  
+  	return render_template('orders.html', detailsHere = orderHistory)
 
 if __name__ == '__main__':
     app.run(use_reloader=True)
