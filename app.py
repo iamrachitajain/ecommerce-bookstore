@@ -19,17 +19,23 @@ def index():
 @app.route('/signup/', methods=['GET', 'POST'])
 def signup():
 	if request.method == "POST":
-		print(request.form['password'])
 		details = request.form
-		print("details")
-		
-		firstName = details['fname']
-		lastName = details['lname']
-		email = details['email']
-		pas = details['password']
-		phone = details['phone']
+		print(details['userFirst'])
+		userEmail = details['userEmail']
+		userPassword = details['userPassword']
+		userRepeatPassword = details['userRepeatPassword']
+		userFirst = details['userFirst']
+		userLast = details['userLast']
+		userPhone = details['userPhone']
+		street = details['street']
+		city = details['city']
+		country = details['country']
+		userGender = details['userGender']
+		bdate = date['date']
+		bmonth = details['month']
+		byear = year['year']
 		cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-		cur.execute("INSERT INTO MyUsers(firstName, lastName, email, pas, phone) VALUES (%s, %s, %s, %s, %d)", (firstName, lastName, email, pas, phone))
+		cur.execute("INSERT INTO MyUsers VALUES(userEmail, userPassword, userRepeatPassword, userFirst, userLast, userPhone, street, city, country, userGender, bdate, bmonth, byear)")
 		mysql.connection.commit()
 		cur.close()
 	return render_template('signup.html')
@@ -37,7 +43,6 @@ def signup():
 @app.route('/signin/', methods=['GET', 'POST'])
 def signin():
 	if request.method == "POST":
-		print(request.form['password'])
 		username = request.form['user']
 		password = request.form['password']
 		cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)

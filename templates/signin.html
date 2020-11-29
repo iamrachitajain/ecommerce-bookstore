@@ -4,6 +4,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Form</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.6/tailwind.min.css" />
+<script type="text/javascript">
+  function ValidateEmail()   
+{
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.user.value))  
+    {
+        return (true);
+    }
+    alert("Invalid Email");  
+    return (false);
+}
+</script>
   </head>
   <body class="bg-blue-500">
     <!-- Login Form -->
@@ -12,14 +23,15 @@
         <div class="text-center mb-8">
           <h1 class="font-bold text-2xl font-bold">Sign In</h1>
         </div>
-        <form action="/signin/" method="POST">
+        <form name=myForm action="/signin/" method="POST" onsubmit="return ValidateEmail();">
           <div class="mt-5">
-            <label for="username">Username or Email</label>
+            <label for="username">Email</label>
             <input
               name="user"
               type="text"
               id="username"
               class="block w-full p-2 border rounded border-gray-500"
+              required
             />
           </div>
           <div class="mt-5">
@@ -29,6 +41,7 @@
               type="password"
               id="password"
               class="block w-full p-2 border rounded border-gray-500"
+              required
             />
           </div>
           <div class="mt-10">
