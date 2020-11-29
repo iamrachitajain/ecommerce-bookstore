@@ -66,6 +66,19 @@ def books():
 	return render_template('books.html')
 
 
+@app.route('/cart/', methods=['GET', 'POST'])
+def cart():
+	htmlToAdd = ""
+	cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+		cur.execute('SELECT product_ID FROM Cart_item WHERE cart_ID = Cart.customer_ID AND Cart.customer_ID = Customer.ID')
+		item = cur.fetchone()
+		while item is not None:
+  			prodID = item
+  			cur.execute('SELECT title, price, img FROM Book WHERE ISBN = %d', prodID)
+  			details = cur.fetchone()
+  			htmlToAdd += "<img src = \"%s\"><br>%s<br>%f", details.get('img'), details.get('title'), details.get('price')  
+  			item = cursor.fetchone()
+  	return render_template('cart.html', detailsHere = htmlToAdd)
 
 if __name__ == '__main__':
     app.run(use_reloader=True)
