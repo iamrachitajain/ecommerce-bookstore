@@ -1,0 +1,41 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.6/tailwind.min.css" />
+<script type="text/javascript">
+  function ValidateEmail()   
+{
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.userEmail.value))  
+    {
+        return (true);
+    }
+    alert("Please enter a valid email id");  
+    return (false);
+
+    if(myForm.userPassword.value !== myForm.userRepeatPassword.value)
+    {
+      alert("Password entered do not match");  
+    return (false);
+    }
+}
+</script>
+  </head>
+  <body class="bg-blue-500">
+    <!-- Login Form -->
+    <div class="container mx-auto p-2">
+      <div class="max-w-sm mx-auto my-24 bg-white px-5 py-10 rounded shadow-xl">
+        <div class="text-center mb-8">
+          <h1 class="font-bold text-2xl font-bold">Previous Orders</h1>
+        </div>
+        <form name="ShoppingList">
+    <fieldset>
+        <legend>Order History</legend><br>
+        { { detailsHere }}<br><br>
+    </fieldset>
+</form>
+      </div>
+    </div>
+  </body>
+</html>

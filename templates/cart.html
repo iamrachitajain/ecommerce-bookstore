@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -215,4 +216,55 @@ span.price {
 </div>
 
 </body>
+=======
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.6/tailwind.min.css" />
+<script type="text/javascript">
+  function ValidateEmail()   
+{
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.userEmail.value))  
+    {
+        return (true);
+    }
+    alert("Please enter a valid email id");  
+    return (false);
+
+    if(myForm.userPassword.value !== myForm.userRepeatPassword.value)
+    {
+      alert("Password entered do not match");  
+    return (false);
+    }
+}
+</script>
+  </head>
+  <body class="bg-blue-500">
+    <!-- Login Form -->
+    <div class="container mx-auto p-2">
+      <div class="max-w-sm mx-auto my-24 bg-white px-5 py-10 rounded shadow-xl">
+        <div class="text-center mb-8">
+          <h1 class="font-bold text-2xl font-bold">View Your Cart</h1>
+        </div>
+        <form name="ShoppingList">
+    <fieldset>
+        <legend>Shopping cart</legend><br>
+        { { detailsHere }}<br><br>
+        <input type="button" value="Save"   onclick="SaveItem()">
+        <input type="button" value="Update" onclick="ModifyItem()">
+        <input type="button" value="Delete" onclick="RemoveItem()">
+    </fieldset>
+    <div id="items_table">
+        <h2>Shopping List</h2>
+        <table id="list"></table>
+        <label><input type="button" value="Clear" onclick="ClearAll()">
+        * Delete all items</label>
+    </div>
+</form>
+      </div>
+    </div>
+  </body>
+>>>>>>> 0c6ff1b0ce71b5fab1e0657d1aa04b35a6729a5c
 </html>
