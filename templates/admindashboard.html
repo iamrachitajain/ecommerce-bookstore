@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+	<title>Welcome {{session.adminFirst}} </title>
+	<style type="text/css">
+		* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+			}
+			body {
+			    margin: 0;
+			    font-family: Oxygen;
+			    line-height: 2;
+			    background: #F7F7F9;
+			}
+			.container{
+			    overflow-y: hidden;
+			}
+			.sb-right{
+			    padding-right: 250px; /* sidebar width */
+			}
+			.sb-left{
+			    padding-left: 250px; /* sidebar width */
+			}
+			.sb-open .page-wrapper{
+			    position:relative;
+			    left:250px;
+			}
+			.sb-open .sidebar{
+			    width:250px;
+			}
+			.sb-open .sidebar .nav-list,
+			.sb-open .sidebar .sidebar-logo{
+			    opacity: 1;
+			}
+			.sidebar {
+			    position: fixed;
+			    height: 100%;
+			    width: 250px;
+			    background: #1C243B;
+			    transition: all 0.5s ease;
+			}
+			.sidebar.left  {left:0}
+			.sidebar.right {right:0}
+
+			.sidebar-logo{
+			    width: 100%;
+			    background: #00B7D4;
+			    text-align: center;
+			    padding: 25px 0;
+			    color: #fff;
+			    line-height: 1;
+			}
+			.nav-list {
+			    padding: 30px 0px;
+			    line-height: 2em;
+			}
+			.nav-list ul li>a {
+			    display: flex;
+			    color: #7C879D;
+			    font-size: 12px;
+			    text-decoration: none;
+			    font-weight: bold;
+			    padding: 5px 40px;
+			    transition: .1s ease;
+			    border-left: 3px solid transparent;
+			}
+			.nav-list ul li .active {
+			    border-left:3px solid #00B7D4;
+			    background-color: #13192c;
+			}
+			.nav-list ul li .active i:before {
+			    color: #fff;
+			}
+			.nav-list ul li a>i {
+			    width: 30px;
+			}
+
+
+			/* page styling*/
+
+			.page-wrapper {
+			    background: #F7F7F9;
+			    height: 100vh;
+			    transition: all 0.5s ease;
+			}
+			.overlay {
+			    background: #1c243b;
+			    position: absolute;
+			    z-index: 1;
+			    top: 45px;
+			    left: 0;
+			    right: 0;
+			    bottom: 0;
+			    opacity: 0;
+			    display:none;
+			    transition: opacity .4s ease-in-out;
+			}
+			.overlay.show{
+			    opacity: 0.5;
+			}
+			.topbar {
+			    max-height: 0;
+			    background: #1C243B;
+			    transition: all .4s ease;
+			}
+			a.menu-btn {
+			    font-size: 35px;
+			    text-decoration: none;
+			    margin-left: 20px;
+			    line-height: initial;
+			    opacity: 0;
+			}
+			.page-content{
+			    max-width: 80%;
+			    margin: auto;
+			    padding-top: 25px;
+			}
+			div[data-content].active {
+			    display: block;
+			}
+
+			.btn {
+			    text-transform: uppercase;
+			    text-decoration: none;
+			    font-weight: 600;
+			    font-size: 12px;
+			    color: #656d84;
+			    border: 1.4pt solid rgba(137, 145, 169, 0.58);
+			    padding: 10px 25px;
+			    border-radius: 25px;
+			    line-height: 1;
+			}
+			.btn span{
+			    margin-left:10px;
+			}
+			.back.btn {
+			    float: left;
+			}
+			.logout.btn {
+			    float: right;
+			}
+			.row {
+			    background: #fff;
+			    -webkit-box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.68);
+			    -moz-box-shadow: 0px 0px 20px -1px rgba(0,0,0,0.68);
+			    box-shadow: 0px 0px 20px -1px rgba(0, 0, 0, 0.15);
+			    border-radius: 5px; 
+			}
+			/* Charts*/
+			.row.statistics {
+			    padding-top: 10px;
+			    padding-bottom: 10px;
+			}
+			.chart-details {
+			    position: absolute;
+			    z-index: 1;
+			    margin-left: 90px;
+			    margin-top: 20px;
+
+			}
+			.chart-title {
+			    font-family: "Courier New", Courier, monospace;
+			    font-size: 22px;
+			    letter-spacing: -2px;
+			    color: rgba(79, 86, 110, 0.86);
+			}
+			.chart-points {
+			    float: right;
+			    margin-top: 20px;
+			    z-index: 1;
+			    position: relative;
+			    margin-right: 90px;
+			}
+			.point-ico {
+			    margin-right: 5px;
+			    font-style: normal;
+			    font-size: 25px;
+			}
+			.charts {
+			    min-height: 400px;
+			    width: 95%;
+			    margin : auto;
+			    padding-top: 10px;
+			}
+			/* Table */
+			.row.table {
+			    padding-bottom: 10px;
+			}
+			.rwd-table {
+			    margin: 1em 0;
+			    min-width: 100%;
+			}
+			.rwd-table tr {
+			    border-top: 1px solid #ddd;
+			    border-bottom: 1px solid #ddd;
+			}
+			.rwd-table th {
+			    display: none;
+			}
+			.rwd-table td {
+			    display: block;
+			}
+			.rwd-table th, .rwd-table td {
+			    text-align: left;
+			}
+			.rwd-table td:first-child {
+			    padding-top: .5em;
+			}
+			.rwd-table td:last-child {
+			    padding-bottom: .5em;
+			}
+			.rwd-table td:before {
+			    content: attr(data-th) ": ";
+			    font-weight: bold;
+			    width: 6.5em;
+			    display: inline-block;
+			}
+			.rwd-table {
+			    background: #fff;
+			    color: rgba(87, 86, 86, 0.85);;
+			    border-radius: .4em;
+			    overflow: hidden;
+			}
+			.rwd-table tr {
+			    border-color: rgba(70, 99, 127, 0.03);
+			}
+			.rwd-table th, .rwd-table td {
+			    margin: .5em 1em;
+			}
+			.rwd-table th, .rwd-table td:before {
+			    color: #000;
+			}
+
+			/* HELPER CLASSES*/
+
+			.mrgn-60 {
+			    margin-top: 60px;
+			}
+			.mrgn-40 {
+			    margin-top: 40px;
+			}
+			.text-centered {
+			    text-align: center;
+			}
+			.hidden {
+			    display: none;
+			}
+
+			/**
+			 * HOVERS & ANIMATION
+			 *
+			 */
+			.nav-list ul li>a:hover  {
+			    border-left:3px solid #00B7D4;
+			    background-color: #13192c;
+			}
+			.nav-list ul li>a:hover i:before{
+			    color: #fff;
+			}
+
+			/**
+			 * MEDIA QUERIES
+			 *
+			 */
+			@media screen and (max-width: 1100px) {
+			    .sidebar{
+			        width: 0;
+			    }
+			    .overlay {
+			        display:block;
+			    }
+			    .topbar {
+			        max-height: 45px;
+			    }
+			    .topbar a.menu-btn{
+			        opacity: 1;
+			    }
+			    .nav-list, .sidebar-logo {
+			        opacity: 0;
+			    }
+			    .sb-left {
+			        padding-left: 0;
+			    }
+			}
+			@media screen and (max-width: 768px) {
+			    .chart-title {
+			        margin-left:0;
+			    }
+			}
+			@media screen and (max-width: 400px) {
+			    .btn {
+			        padding: 10px 10px;
+			        font-size: 10px;
+			    }
+			}
+
+			@media (min-width: 480px) {
+			  .rwd-table td:before {
+			    display: none;
+			  }
+			}
+
+			@media (min-width: 480px) {
+			  .rwd-table th, .rwd-table td {
+			    display: table-cell;
+			    padding: .25em .5em;
+			  }
+			  .rwd-table th:first-child, .rwd-table td:first-child {
+			    padding-left: 0;
+			  }
+			  .rwd-table th:last-child, .rwd-table td:last-child {
+			    padding-right: 0;
+			  }
+			}
+
+			@media (min-width: 480px) {
+			  .rwd-table th, .rwd-table td {
+			    padding: 1em !important;
+			  }
+			}
+			/**
+			 * KEYFRAMES & ANIMATION
+			 * 
+			 */
+			div[data-content] {
+			    -webkit-animation: fadeinup .4s ease forwards;
+			    -moz-animation: fadeinup .4s ease forwards;
+			    -ms-animation: fadeinup .4s ease forwards;
+			    animation: fadeinup .4s ease forwards;
+			    
+			}
+			@-webkit-keyframes fadeinup {
+			    from {transform: translateY(15%);opacity:0;}
+			    to   {transform: translateY(0%);opacity:1;}
+			}
+			@-moz-keyframes fadeinup {
+			    from {transform: translateY(15%);opacity:0;}
+			    to   {transform: translateY(0%);opacity:1;}
+			}
+			@-ms-keyframes fadeinup {
+			    from {transform: translateY(15%);opacity:0;}
+			    to   {transform: translateY(0%);opacity:1;}
+			}
+			@keyframes fadeinup {
+			    from {transform: translateY(15%);opacity:0;}
+			    to   {transform: translateY(0%);opacity:1;}
+			}
+
+
+
+			/* icons*/
+
+			.fn:before{
+			    font-family: 'entypo', sans-serif;
+			    font-size:19px;
+			    text-rendering: auto;
+			    -webkit-font-smoothing: antialiased;
+			    font-style: normal;
+			    color: #8991a9;
+			}
+			.chart-pie:before{
+			    content: "\e751";
+			}
+			.users:before {
+			    content: "\1f465";
+			}
+			.comment:before {
+			    content: "\e718";
+			}
+			.megaphone:before {
+			    content:"\1f4e3";
+			}
+			.chart-bar:before{content:"\1f4ca"}
+			.location:before{content:"\e724";font-size: 25px;}
+			.left-arrow:before{content:"\e765";font-size: 13px;}
+			.logout-ic:before{content:"\e741";font-size: 13px;}
+			.dot-ic:before{content:"\e78b"}
+			.menu-ic:before{content:"\2630";font-size:inherit;}
+
+			/* 
+			rest css
+			*/
+
+			html, body, div, span, 
+			h1, h2, h3, h4, h5, h6, p, ul, li,
+			table, caption, tbody, tfoot, thead, tr, th, td{
+				margin: 0;
+				padding: 0;
+				border: 0;
+				vertical-align: baseline;
+			}
+			body {
+				line-height: 2;
+			}
+			ol, ul {
+				list-style: none;
+			}
+			blockquote, q {
+				quotes: none;
+			}
+			blockquote:before, blockquote:after,
+			q:before, q:after {
+				content: '';
+				content: none;
+			}
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+	</style>
+</head>
+<body>
+       <div class="container sb-left">
+           <div class="sidebar left">
+               <div class="sidebar-logo">
+                   <h2>{{session.adminFirst}} </h2>
+               </div>
+               <div class="nav-list">
+                <ul>
+                    <li><a href="#" class="active" data-page="statistaics"><i class="fn chart-pie"></i><span>STATISTICS</span></a></li>
+                    
+                    <li><a href="#" data-page="users"><i class="fn users"></i><span>USERS</span></a></li>
+
+                    <li><a href="#" data-page="comments"><i class="fn comment"></i><span>COMMENTS</span></a></li>
+
+                </ul>
+               </div>
+           </div>
+           <div class="page-wrapper">
+               <div class="topbar">
+                   <a class="menu-btn" href="#"><i class="fn menu-ic"></i></a>
+               </div>
+               <div class="page-content">
+                   <div class="head-btns">
+                       <a class="back btn" href="/home/"><i class="fn left-arrow"></i><span>Back to Homepage</span></a>
+                       <a class="logout btn" href="{{url_for('logout')}}"><i class="fn logout-ic"></i><span>Log Out</span></a>
+                       <div style="clear: both;"></div>
+                   </div>
+                   <div class="mrgn-60"></div>
+                   <div data-content="statistaics" class="active">
+                      <div class="row statistics">
+                       <div class="chart-details">
+                           <h2 class="chart-title">Statistics For August <span class="chart-date">(2016)</span></h2>
+                        </div>
+                       <div class="chart-points" style="display:none;">
+                           <a class="chart-point"><i class="fn dot-ic"></i><span>Ads</span></a>
+                           <a class="chart-point"><i class="fn dot-ic"></i><span>Comments</span></a>
+                           <a class="chart-point"><i class="fn dot-ic"></i><span>Users</span></a>
+                       </div>
+
+                       <div id="curve_chart" class="charts"></div>
+                       </div>
+                   </div>
+                   <div data-content="users" class="hidden">
+                        <div class="row table">
+                            <table class="rwd-table">
+                                <tr>
+                                    <th>Email ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Phone Number</th>
+                                </tr>
+                                {% for item in data %}
+								<tr>
+								    <td>{{item['userEmail']}}</td>
+								    <td>{{item['userFirst']}}</td>
+								    <td>{{item['userLast']}}</td>
+								    <td>{{item['userPhone']}}</td>
+								    <td>
+								    	<form action="/delete/{{ item.userEmail }}" method="post">
+    									<input type="submit" value="Delete" />
+										</form>
+								    </td>
+								</tr>
+								{% endfor %}
+                            </table>
+                       </div>
+                   </div>
+                   <div data-content="err-404" class="hidden">
+                       <h1>Error 404</h1>
+                       <h5>Create a content for this anchor</h5>
+                   </div>
+               </div>
+               <div class="overlay"></div>
+           </div>
+       </div>
+<script type="text/javascript">
+    //    Remove Class "active" from sidebar elements
+    //    Add Class "active" to the clicked element
+    var nav_item = document.querySelectorAll('.nav-list ul li a');
+    [].forEach.call(nav_item, function(item) {
+        item.addEventListener('click', function() { 
+            
+            var clickeditem  = item.parentNode.childNodes[0];
+            var anchor       = clickeditem.getAttribute('data-page');
+            var page_name    = document.querySelector('[data-content='+ anchor +']');
+            var active_page  = document.querySelector('.page-wrapper .page-content .active');
+            var active_class = document.querySelector('.nav-list ul li .active');
+            
+            //adding active class to the clicked anchor
+            active_class.classList.remove('active');
+            clickeditem.classList.add('active');
+            
+            //adding active class to the target page
+            if(page_name !== null) { 
+                active_page.classList.remove('active');
+                active_page.classList.add('hidden');
+                
+                page_name.classList.remove('hidden');
+                page_name.classList.add('active');
+            }else{
+                active_page.classList.remove('active');
+                active_page.classList.add('hidden');
+                
+                document.querySelector('[data-content=err-404]').classList.remove('hidden');
+                document.querySelector('[data-content=err-404]').classList.add('active');
+            }
+        });
+    
+    });
+
+    //Open & Close Sidebar
+    $('.menu-btn').on('click', function(){
+        $('.container').toggleClass('sb-open');
+        $('.overlay').toggleClass('show');
+    });
+    </script>
+    </body>
+</html>

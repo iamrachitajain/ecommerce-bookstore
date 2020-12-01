@@ -2,6 +2,24 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+  var count = 0;
+  $("input.add-to-cart").click(function(event) {
+    count++;
+    setTimeout(function() {
+      $("a.cart > span").addClass("counter");
+      $("a.cart > span.counter").text(count);
+    }, 400);
+    setTimeout(function() {
+      $("button.add-to-cart").removeClass("hover");
+      $("button.add-to-cart").removeClass("size");
+    }, 600);
+    event.preventDefault();
+  });
+});
+</script>
 <style>
 body {
   margin: 0;
@@ -74,7 +92,7 @@ body {
 }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 400px;
+  max-width: 300px;
   margin: auto;
   text-align: center;
   font-family: arial;
@@ -101,6 +119,70 @@ body {
   opacity: 0.7;
 }
 
+a.cart {
+  width: 72px;
+  height: 72px;
+  -moz-border-radius: 36px;
+  -webkit-border-radius: 36px;
+  border-radius: 36px;
+  font-size: 18px;
+  text-align: center;
+  color: #616161;
+  text-decoration: none;
+  position: absolute;
+  right: 24px;
+  top: 36px;
+  display: block;
+  background: #535558 url(http://images.vfl.ru/ii/1484930184/14435803/15757225.png
+) center no-repeat;
+  background-size: 36px;
+  box-shadow: 0 3px 6px rgba(97, 97, 97 0.16), 0 3px 6px rgba(97, 97, 97 0.23);
+  -moz-box-shadow: 0 3px 6px rgba(97, 97, 97 0.16), 0 3px 6px rgba(97, 97, 97 0.23);
+  -webkit-box-shadow: 0 3px 6px rgba(97, 97, 97 0.16), 0 3px 6px rgba(97, 97, 97 0.23);
+}
+
+a.cart > span {
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  color: #fff;
+  line-height: 24px;
+  position: absolute;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  display: block;
+  transform: scale(0);
+  -o-transform: scale(0);
+  -ms-transform: scale(0);
+  -moz-transform: scale(0);
+  -webkit-transform: scale(0);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: #ffab00;
+  box-shadow: 0 3px 6px rgba(255, 171, 0, 0.16), 0 3px 6px rgba(255, 171, 0, 0.23);
+  -moz-box-shadow: 0 3px 6px rgba(255, 171, 0, 0.16), 0 3px 6px rgba(255, 171, 0, 0.23);
+  -webkit-box-shadow: 0 3px 6px rgba(255, 171, 0, 0.16), 0 3px 6px rgba(255, 171, 0, 0.23);
+}
+
+a.cart > span.counter {
+  left: 48px;
+  bottom: 48px;
+  -webkit-transition: .2s linear;
+  -moz-transition: .2s linear;
+  -ms-transition: .2s linear;
+  -o-transition: .2s linear;
+  transition: .2s linear;
+  transform: scale(1);
+  -o-transform: scale(1);
+  -ms-transform: scale(1);
+  -moz-transform: scale(1);
+  -webkit-transform: scale(1);
+}
+
 </style>
 </head>
 <body>
@@ -110,53 +192,28 @@ body {
   <a href="#news">Java</a>
   <a href="#contact">Python</a>
   <a href="#about">C/C++</a>
+  <a href="/cart/" class="cart"><span></span></a>
 </div>
 
 <div style="padding-left:16px">
   <h2>Books Available..</h2>
 </div>
 
-<div class="row">
+{% for item in data %}
+  <div class="row">
   <div class="column">
     <div class="card">
   <img src="https://images-na.ssl-images-amazon.com/images/I/51-eVLS3PLL._SX345_BO1,204,203,200_.jpg" alt="Denim Jeans" style="width:100%">
-  <h1>Tailored Jeans</h1>
-  <p class="price">$19.99</p>
-  <p>Javascript Book 1</p>
-  <p><button>Add to Cart</button></p>
+  <h1>{{item['title']}}</h1>
+  <p class="price">{{item['price']}}</p>
+  <p>{{item['title']}}</p>
+  <p><form action="/add/{{ item.ISBN }}" method="post">
+                      <input type="submit" value="Add to Cart" class="add-to-cart"></input>
+                      <input type="submit" value="+1" class="+1"></input></form></p>
     </div>
   </div>
+{% endfor %}
 
-  <div class="column">
-    <div class="card">
-      <img src="https://images-na.ssl-images-amazon.com/images/I/91hUer84PpL.jpg" alt="Denim Jeans" style="width:100%">
-  <h1>Tailored Jeans</h1>
-  <p class="price">$19.99</p>
-  <p>Javascript Book 1</p>
-  <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  
-  <div class="column">
-    <div class="card">
-      <img src="https://images-na.ssl-images-amazon.com/images/I/5138YhQZILL.jpg" style="width:100%">
-  <h1>Tailored Jeans</h1>
-  <p class="price">$19.99</p>
-  <p>Javascript Book 3</p>
-  <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  
-  <div class="column">
-    <div class="card">
-      <img src="https://images-na.ssl-images-amazon.com/images/I/51-GRqC7HOL._SX359_BO1,204,203,200_.jpg" alt="Denim Jeans" style="width:100%">
-  <h1>Tailored Jeans</h1>
-  <p class="price">$19.99</p>
-  <p>Javascript Book 4</p>
-  <p><button>Add to Cart</button></p>
-    </div>
-  </div>
 </div>
-
 </body>
 </html>

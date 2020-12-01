@@ -26,7 +26,12 @@
         <form name=myForm action="/signin/" method="POST" onsubmit="return ValidateEmail();">
           <div class="msg"> {{msg}} </div>
           <div class="mt-5">
-            <label for="username">Email</label>
+            <label for="username">Account Type *</label>
+            <input type="radio" name="account" value="customer" required> Customer</input>
+            <input type="radio" name="account" value="admin" required> Administrator</input>
+          </div>
+          <div class="mt-5">
+            <label for="username">Email *</label>
             <input
               name="user"
               type="text"
@@ -36,7 +41,7 @@
             />
           </div>
           <div class="mt-5">
-            <label for="password">Password</label>
+            <label for="password">Password *</label>
             <input
               name="password"
               type="password"
